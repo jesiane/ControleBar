@@ -7,7 +7,7 @@ using ControleDeBar.ConsoleApp.ModuloProduto;
 using ControleDeBar.ConsoleApp;
 using System.Collections;
 
-namespace Restaurante.ConsoleApp.ModuloConta
+namespace ControleDeBar.ConsoleApp.ModuloConta
 {
     public class TelaConta : TelaBase
     {
