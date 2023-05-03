@@ -16,31 +16,13 @@ namespace ControleDeBar.ConsoleApp.ModuloGarcon
             
         }
 
-  /*      public override string ApresentarMenu()
-        {
-            Console.Clear();
-
-            Console.WriteLine("Cadastro de Garçon \n");
-
-            Console.WriteLine("Digite 1 para Inserir Garçon");
-            Console.WriteLine("Digite 2 para Visualizar Garçon");
-            Console.WriteLine("Digite 3 para Editar Garçon");
-            Console.WriteLine("Digite 4 para Excluir Garçon");
-
-            Console.WriteLine("Digite s para Sair");
-
-            string opc = Console.ReadLine();
-
-            return opc;
-        } */
-
         protected override void MostrarTabela(ArrayList registros)
         {
-            Console.WriteLine("{0,-10}{1,-20}{2,-20}", "id", "Nome", "CPF");
+            Console.WriteLine("|{0,-10}| {1,-20}| {2,-20}|", "id", "Nome", "CPF");
             Console.WriteLine("---------------------------------------------------");
             foreach (Garcom garcon in registros)
             {
-                Console.WriteLine("{0,-10}{1,-29}{2,-20}", garcon.id , garcon.nome, garcon.cpf);
+                Console.WriteLine("|{0,-10}| {1,-20}| {2,-20}|", garcon.id , garcon.nome, garcon.cpf);
             }
         }
         protected override EntidadeBase ObterRegistro()

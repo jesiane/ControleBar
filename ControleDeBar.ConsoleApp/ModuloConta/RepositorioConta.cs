@@ -16,7 +16,7 @@ namespace ControleDeBar.ConsoleApp.ModuloConta
         }
         public override EntidadeBase SelecionarPorId(int id)
         {
-            return base.SelecionarPorId(id);
+            return (Contas)base.SelecionarPorId(id);
         }
     }
 }

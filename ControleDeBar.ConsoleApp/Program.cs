@@ -17,6 +17,7 @@ uma determinada conta.
 ● Permitir que os funcionários cadastrem mesas
 ● Permitir que os funcionários cadastrem garçons.*/
 using ControleDeBar.ConsoleApp.ModuloConta;
+using ControleDeBar.ConsoleApp.ModuloGarcom;
 using ControleDeBar.ConsoleApp.ModuloGarcon;
 using ControleDeBar.ConsoleApp.ModuloMesa;
 using ControleDeBar.ConsoleApp.ModuloProduto;
@@ -35,7 +36,7 @@ namespace ControleDeBar.ConsoleApp
             RepositorioMesa repositorioMesa = new RepositorioMesa(new ArrayList());
             RepositorioProduto repositorioProduto = new RepositorioProduto(new ArrayList());
 
-            CadastrarRegistros(repositorioProduto);
+            CadastrarRegistros(repositorioProduto, repositorioMesa, repositorioGarcon, repositorioConta);
 
             TelaGarcom telaGarcom = new TelaGarcom(repositorioGarcon);
             TelaConta telaConta = new TelaConta(repositorioConta);
@@ -140,7 +141,7 @@ namespace ControleDeBar.ConsoleApp
             }
         }
 
-        private static void CadastrarRegistros(RepositorioProduto repositorioProduto)
+        private static void CadastrarRegistros(RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa, RepositorioGarcom repositorioGarcom,RepositorioConta repositorioConta)
         {
             Produto produto1 = new Produto("Cerveja", "R$ 18,00", 50);
             Produto produto2 = new Produto("Pastel", "R$ 10,00", 10);
@@ -152,7 +153,27 @@ namespace ControleDeBar.ConsoleApp
             repositorioProduto.Inserir(produto3);
             repositorioProduto.Inserir(produto4);
 
-        }
+            Mesa mesa1 = new Mesa(001);
+            Mesa mesa2 = new Mesa(002);
+            Mesa mesa3 = new Mesa(003);
+            Mesa mesa4 = new Mesa(004);
 
+            repositorioMesa.Inserir(mesa1);
+            repositorioMesa.Inserir(mesa2);
+            repositorioMesa.Inserir(mesa3);
+            repositorioMesa.Inserir(mesa4);
+
+            Garcom garcon1 = new Garcom("João", "123");
+            Garcom garcon2 = new Garcom("Felipe", "456");
+            Garcom garcon3 = new Garcom("Marcos", "789");
+            Garcom garcon4 = new Garcom("Antonia", "321");
+
+            repositorioGarcom.Inserir(garcon1);
+            repositorioGarcom.Inserir(garcon2);
+            repositorioGarcom.Inserir(garcon3);
+            repositorioGarcom.Inserir(garcon4);
+
+            Contas conta1 = new Contas(1,1,1,03/05/2023);
+        }
     }
 }

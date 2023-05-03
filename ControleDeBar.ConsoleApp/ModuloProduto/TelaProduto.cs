@@ -14,33 +14,16 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
             nomeEntidade = "Produto";
             sufixo = "s";
         }
-   /*     public override string ApresentarMenu()
-        {
-            Console.Clear();
-
-            Console.WriteLine("Cadastro de Produtos \n");
-
-            Console.WriteLine("Digite 1 para Inserir Produtos");
-            Console.WriteLine("Digite 2 para Visualizar Produtos");
-            Console.WriteLine("Digite 3 para Editar Produtos");
-            Console.WriteLine("Digite 4 para Excluir Produtos");
-
-            Console.WriteLine("Digite s para Sair");
-
-            string opc = Console.ReadLine();
-
-            return opc;
-        } */
-
+   
         protected override void MostrarTabela(ArrayList registros)
         {
-            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | ", "Id", "Produto", "Preço");
+            Console.WriteLine("{0, -10} |{1, -20}| {2, -20}| {3, -20}| ", "Id", "Produto", "Preço","quantidade");
 
-            Console.WriteLine("--------------------------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------------------------------");
 
             foreach (Produto produto in registros)
             {
-                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | ", produto.id, produto.nome, produto.preco);
+                Console.WriteLine("{0, -10} |{1, -20}| {2, -20}| {3, -20}| ", produto.id, produto.nome, produto.preco,produto.quantidade);
             }
           
         }
@@ -54,7 +37,10 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
             string preco = Console.ReadLine();
 
 
-            return new Produto(nome, preco);
+            Console.Write("Digite o qunatidade: ");
+            int quantidade = Convert.ToInt32(Console.ReadLine());
+
+            return new Produto(nome, preco, quantidade);
 
         }
     }
