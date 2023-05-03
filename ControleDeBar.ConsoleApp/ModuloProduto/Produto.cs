@@ -10,17 +10,16 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
 { 
     public class Produto : EntidadeBase
     {
-        public int id;
+        
         public string nome;
-        public string descricao;    
-        public Double valor;
+        public string preco;
+        public int quantidade;
 
-        public Produto(int id, string nome, string descricao, double valor)
+        public Produto(string nome, string preco, int quantidade)
         {
-            this.id = id;
             this.nome = nome;
-            this.descricao = descricao;
-            this.valor = valor;
+            this.preco = preco;
+            this.quantidade = quantidade;
         }
 
         public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
@@ -28,13 +27,23 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
             Produto produtoAtualizado = (Produto)registroAtualizado;
 
             this.nome = produtoAtualizado.nome;
-            this.descricao = produtoAtualizado.descricao;
-            this.valor = produtoAtualizado.valor;
+            this.preco = produtoAtualizado.preco;
+            this.quantidade = produtoAtualizado.quantidade;
         }
 
         public override ArrayList Validar()
         {
-            throw new NotImplementedException();
+            ArrayList erros = new ArrayList();
+            if (string.IsNullOrEmpty(nome.Trim()))
+                erros.Add("O campo \"Nome do produto\" é obrigatório");
+
+            if (string.IsNullOrEmpty(preco.Trim()))
+                erros.Add("O campo \"Preço\" é obrigatório");
+          
+            if (quantidade < 0)
+                erros.Add("O campo \"numero\" é obrigatório");
+
+            return erros;
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
 using System.Collections;
 
-
-namespace ControleDeBar.ConsoleApp.ModuloProduto
+namespace ControleDeBar.ConsoleApp.ModuloGarcon
 {
-    public class RepositorioProduto : RepositorioBase
+    public class RepositorioGarcom : RepositorioBase
     {
-        public RepositorioProduto(ArrayList listaProduto)
+
+        public RepositorioGarcom(ArrayList listaGarcon)
         {
-            this.listaRegistros = listaProduto;
+            this.listaRegistros = listaGarcon; 
         }
         public override EntidadeBase SelecionarPorId(int id)
         {
             return base.SelecionarPorId(id);
         }
-       
     }
 }

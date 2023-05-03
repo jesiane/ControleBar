@@ -19,7 +19,6 @@ uma determinada conta.
 using ControleDeBar.ConsoleApp.ModuloConta;
 using ControleDeBar.ConsoleApp.ModuloGarcon;
 using ControleDeBar.ConsoleApp.ModuloMesa;
-using ControleDeBar.ConsoleApp.ModuloPedido;
 using ControleDeBar.ConsoleApp.ModuloProduto;
 using System.Collections;
 
@@ -36,16 +35,12 @@ namespace ControleDeBar.ConsoleApp
             RepositorioMesa repositorioMesa = new RepositorioMesa(new ArrayList());
             RepositorioProduto repositorioProduto = new RepositorioProduto(new ArrayList());
 
-            CadastrarRegistros(repositorioGarcon, repositorioConta, repositorioMesa);
+            CadastrarRegistros(repositorioProduto);
 
             TelaGarcom telaGarcom = new TelaGarcom(repositorioGarcon);
             TelaConta telaConta = new TelaConta(repositorioConta);
             TelaMesa telaMesa = new TelaMesa(repositorioMesa);
             TelaProduto telaProduto = new TelaProduto(repositorioProduto);
-
-
-
-
 
             TelaPrincipal principal = new TelaPrincipal();
             while (true)
@@ -141,36 +136,23 @@ namespace ControleDeBar.ConsoleApp
                     {
                         telaConta.ExcluirRegistro();
                     }
-
                 }
-
-
             }
         }
 
-         /*   private static void CadastrarRegistros(
-            RepositorioGarcom repositorioGarcon,
-            RepositorioConta repositorioConta,
-            RepositorioMesa repositorioMesa,
-            RepositorioProduto repositorioProduto)
-            {
+        private static void CadastrarRegistros(RepositorioProduto repositorioProduto)
+        {
+            Produto produto1 = new Produto("Cerveja", "R$ 18,00", 50);
+            Produto produto2 = new Produto("Pastel", "R$ 10,00", 10);
+            Produto produto3 = new Produto("Risoles", "R$ 7,00", 10);
+            Produto produto4 = new Produto("Refrigerante", "R$ 10,00", 25);
 
-            Mesa mesa1 = new Mesa();
-
-            Conta conta1 = new Conta(1,"arroz", 1);
-
-            Garcom garcom1 = new Garcom(1, "Joel", "89456", 1, 1);
-
-            Pedido pedido1 = new Pedido();
-
-            Produto produto1 = new Produto();
-
-        */
-
-
-
-            
+            repositorioProduto.Inserir(produto1);
+            repositorioProduto.Inserir(produto2);
+            repositorioProduto.Inserir(produto3);
+            repositorioProduto.Inserir(produto4);
 
         }
+
     }
-    }
+}

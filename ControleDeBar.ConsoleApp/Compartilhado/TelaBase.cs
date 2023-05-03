@@ -66,7 +66,7 @@ namespace ControleDeBar.ConsoleApp.Compartilhado
 
             MostrarMensagem("Registro inserido com sucesso!", ConsoleColor.Green);
         }
-        
+
         public virtual void VisualizarRegistros(bool mostrarCabecalho)
         {
             if (mostrarCabecalho)
@@ -119,10 +119,10 @@ namespace ControleDeBar.ConsoleApp.Compartilhado
             repositorioBase.Excluir(registro);
 
             MostrarMensagem("Registro excluído com sucesso!", ConsoleColor.Green);
-        }      
+        }
 
         public virtual EntidadeBase EncontrarRegistro(string textoCampo)
-        {            
+        {
             bool idInvalido;
             EntidadeBase registroSelecionado = null;
 

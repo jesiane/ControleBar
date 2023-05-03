@@ -1,10 +1,10 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
-using ControleDeBar.ConsoleApp.ModuloGarcon;
+using ControleDeBar.ConsoleApp.ModuloGarcom;
 using ControleDeBar.ConsoleApp.ModuloMesa;
 using ControleDeBar.ConsoleApp.ModuloProduto;
 using System.Collections;
 
-namespace ControleDeBar.ConsoleApp.ModuloPedido
+namespace ControleDeBar.ConsoleApp
 {
     public class Pedido : EntidadeBase
     {
@@ -26,9 +26,9 @@ namespace ControleDeBar.ConsoleApp.ModuloPedido
         {
             Pedido pedidoAtualizado = (Pedido)registroAtualizado;
 
-            this.produto = pedidoAtualizado.produto;
-            this.garcom = pedidoAtualizado.garcom;
-            this.mesa = pedidoAtualizado.mesa;
+            produto = pedidoAtualizado.produto;
+            garcom = pedidoAtualizado.garcom;
+            mesa = pedidoAtualizado.mesa;
         }
 
         public override ArrayList Validar()

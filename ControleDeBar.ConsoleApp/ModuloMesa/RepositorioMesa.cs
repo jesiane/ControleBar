@@ -9,9 +9,9 @@ namespace ControleDeBar.ConsoleApp.ModuloMesa
         {
             this.listaRegistros = listaMesa ;
         }
-        public override EntidadeBase SelecionarPorId(int id)
+        public override Mesa SelecionarPorId(int id)
         {
-            return base.SelecionarPorId(id);
+            return (Mesa)base.SelecionarPorId(id);
         }
     }
 
