@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,10 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
     {
         
         public string nome;
-        public string preco;
+        public double preco;
         public int quantidade;
 
-        public Produto(string nome, string preco, int quantidade)
+        public Produto(string nome, double preco, int quantidade)
         {
             this.nome = nome;
             this.preco = preco;
@@ -37,9 +38,11 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
             if (string.IsNullOrEmpty(nome.Trim()))
                 erros.Add("O campo \"Nome do produto\" é obrigatório");
 
-            if (string.IsNullOrEmpty(preco.Trim()))
-                erros.Add("O campo \"Preço\" é obrigatório");
-          
+            if (preco <= 0 || preco == null)
+            {
+                erros.Add("O campo \"valor\" é obrigatório");
+            }
+
             if (quantidade < 0)
                 erros.Add("O campo \"numero\" é obrigatório");
 

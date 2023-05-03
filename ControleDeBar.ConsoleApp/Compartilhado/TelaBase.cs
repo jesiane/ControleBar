@@ -53,7 +53,7 @@ namespace ControleDeBar.ConsoleApp.Compartilhado
         {
             MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Inserindo um novo registro...");
 
-            EntidadeBase registro = ObterRegistro();
+            EntidadeBase registro = ObterRegistro;
 
             if (TemErrosDeValidacao(registro))
             {
@@ -92,7 +92,7 @@ namespace ControleDeBar.ConsoleApp.Compartilhado
 
             EntidadeBase registro = EncontrarRegistro("Digite o id do registro: ");
 
-            EntidadeBase registroAtualizado = ObterRegistro();
+            EntidadeBase registroAtualizado = ObterRegistro;
 
             if (TemErrosDeValidacao(registroAtualizado))
             {
@@ -176,7 +176,7 @@ namespace ControleDeBar.ConsoleApp.Compartilhado
             return temErros;
         }
 
-        protected abstract EntidadeBase ObterRegistro();
+        protected abstract EntidadeBase ObterRegistro { get; }
 
         protected abstract void MostrarTabela(ArrayList registros);
 

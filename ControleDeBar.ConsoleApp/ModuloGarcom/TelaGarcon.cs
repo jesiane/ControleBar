@@ -25,21 +25,23 @@ namespace ControleDeBar.ConsoleApp.ModuloGarcon
                 Console.WriteLine("|{0,-10}| {1,-20}| {2,-20}|", garcon.id , garcon.nome, garcon.cpf);
             }
         }
-        protected override EntidadeBase ObterRegistro()
+        protected override EntidadeBase ObterRegistro
         {
+            get
+            {
 
-            Console.Write("Digite o nome: ");
-            string nome = Console.ReadLine();
-            Console.WriteLine("Digite o CPf: ");
-            string cpf = Console.ReadLine();
-        
+                Console.Write("Digite o nome: ");
+                string nome = Console.ReadLine();
+                Console.WriteLine("Digite o CPf: ");
+                string cpf = Console.ReadLine();
 
-            Console.WriteLine();
 
-            return new Garcom(nome, cpf);
+                Console.WriteLine();
 
+                return new Garcom(nome, cpf);
+
+            }
         }
-
     }
         
 }

@@ -6,34 +6,21 @@ using System.Collections;
 
 namespace ControleDeBar.ConsoleApp
 {
-    public class Pedido : EntidadeBase
+    public class Pedido
     {
-
-        public int id;
+        public int quantidade;
         public Produto produto;
-        public Garcom garcom;
-        public Mesa mesa;
 
-        public Pedido(int id, Produto produto, Garcom garcom, Mesa mesa)
+        public Pedido(int quantidade, Produto produto)
         {
-            this.id = id;
+            this.quantidade = quantidade;
             this.produto = produto;
-            this.garcom = garcom;
-            this.mesa = mesa;
         }
 
-        public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
+        public double Calculo()
         {
-            Pedido pedidoAtualizado = (Pedido)registroAtualizado;
-
-            produto = pedidoAtualizado.produto;
-            garcom = pedidoAtualizado.garcom;
-            mesa = pedidoAtualizado.mesa;
+            return quantidade * produto.preco;
         }
 
-        public override ArrayList Validar()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

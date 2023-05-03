@@ -28,20 +28,23 @@ namespace ControleDeBar.ConsoleApp.ModuloProduto
           
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override EntidadeBase ObterRegistro
         {
-            Console.Write("Digite o numero Nome do produto: ");
-            string nome = Console.ReadLine();
+            get
+            {
+                Console.Write("Digite o numero Nome do produto: ");
+                string nome = Console.ReadLine();
 
-            Console.Write("Digite o preço: ");
-            string preco = Console.ReadLine();
+                Console.Write("Digite o preço: ");
+                double preco = Convert.ToInt32(Console.ReadLine());
 
 
-            Console.Write("Digite o qunatidade: ");
-            int quantidade = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite o qunatidade: ");
+                int quantidade = Convert.ToInt32(Console.ReadLine());
 
-            return new Produto(nome, preco, quantidade);
+                return new Produto(nome, preco, quantidade);
 
+            }
         }
     }
 }

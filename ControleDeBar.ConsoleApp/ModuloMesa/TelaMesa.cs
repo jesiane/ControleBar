@@ -30,14 +30,17 @@ namespace ControleDeBar.ConsoleApp.ModuloMesa
         }
 
 
-        protected override EntidadeBase ObterRegistro()
+        protected override EntidadeBase ObterRegistro
         {
-          
-            Console.Write("Digite o numero da mesa: ");
-            int numMesa = Convert.ToInt32(Console.ReadLine());
+            get
+            {
+
+                Console.Write("Digite o numero da mesa: ");
+                int numMesa = Convert.ToInt32(Console.ReadLine());
 
 
-            return new Mesa(numMesa );
+                return new Mesa(numMesa);
+            }
         }
     }
 }

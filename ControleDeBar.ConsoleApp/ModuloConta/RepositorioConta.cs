@@ -18,5 +18,19 @@ namespace ControleDeBar.ConsoleApp.ModuloConta
         {
             return (Contas)base.SelecionarPorId(id);
         }
+
+        public double ValorTotal()
+        {
+            double totalTodasAsContas = 0;
+            foreach (Contas conta in listaRegistros)
+            {
+                if (conta.data == DateTime.Now.Date)
+                {
+                    conta.SomarTotalPedidos();
+                    totalTodasAsContas += conta.SomarTotalPedidos();
+                }
+            }
+            return totalTodasAsContas;
+        }
     }
 }

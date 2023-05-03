@@ -1,158 +1,176 @@
 ﻿using ControleDeBar.ConsoleApp.Compartilhado;
+using ControleDeBar.ConsoleApp.ModuloConta;
 using ControleDeBar.ConsoleApp.ModuloGarcom;
 using ControleDeBar.ConsoleApp.ModuloGarcon;
 using ControleDeBar.ConsoleApp.ModuloMesa;
 using ControleDeBar.ConsoleApp.ModuloProduto;
+using ControleDeBar.ConsoleApp;
 using System.Collections;
 
-
-namespace ControleDeBar.ConsoleApp.ModuloConta
+namespace Restaurante.ConsoleApp.ModuloConta
 {
     public class TelaConta : TelaBase
     {
-        private RepositorioConta repositorioContas;
-        private RepositorioGarcom repositorioGarcom;
-        private RepositorioMesa repositorioMesa;
-        private RepositorioProduto repositorioProduto;
+        public RepositorioConta repositorioConta = null;
+        public RepositorioGarcom repositorioGarcom = null;
+        public RepositorioProduto repositorioProduto = null;
+        public RepositorioMesa repositorioMesa = null;
 
-        private TelaGarcom telaGarcom;
-        private TelaMesa telaMesa;
-        private TelaProduto telaProduto;
+        protected override EntidadeBase ObterRegistro => throw new NotImplementedException();
 
-        public TelaConta(RepositorioConta repositorioContas, RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa,
-            RepositorioGarcom repositorioGarcom, TelaGarcom telaGarcom, TelaMesa telaMesa, TelaProduto telaProduto)
+        public TelaConta(RepositorioConta repositorioConta, RepositorioGarcom repositorioGarcom, RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa)
         {
-            this.repositorioContas = repositorioContas;
+            repositorioBase = repositorioConta;
+
+            this.repositorioConta = repositorioConta;
+            this.repositorioGarcom = repositorioGarcom;
             this.repositorioProduto = repositorioProduto;
             this.repositorioMesa = repositorioMesa;
-            this.repositorioGarcom = repositorioGarcom;
-            this.telaGarcom = telaGarcom;
-            this.telaMesa = telaMesa;
-            this.telaProduto = telaProduto;
-        } 
-        public TelaConta(RepositorioConta repositorioConta)
-        {
-            this.repositorioBase = repositorioConta;
             nomeEntidade = "Conta";
             sufixo = "s";
         }
 
-        
+        public override string ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine($"Cadastro de {nomeEntidade}{sufixo} \n");
+
+            Console.WriteLine($"(1) Inserir {nomeEntidade}");
+            Console.WriteLine($"(2) Editar {nomeEntidade}{sufixo}");
+            Console.WriteLine($"(3) Excluir {nomeEntidade}{sufixo}");
+            Console.WriteLine($"(4) Visualizar {nomeEntidade}{sufixo}");
+            Console.WriteLine($"(5) Visualizar {nomeEntidade}{sufixo}abertas");
+            Console.WriteLine($"(6) Adicionar Pedido na {nomeEntidade}");
+            Console.WriteLine($"(7) Listar Pedidos da {nomeEntidade}");
+            Console.WriteLine($"(8) Fechar {nomeEntidade}");
+            Console.WriteLine($"(9) Vizualizar total do dia");
+            Console.WriteLine("(S) para voltar");
+
+            string opcao = Console.ReadLine().ToUpper();
+
+            return opcao;
+        }
+     
+        public override void InserirNovoRegistro()
+        {
+            EntidadeBase registro = ObterRegistro();
+
+            if (TemErrosDeValidacao(registro))
+            {
+                InserirNovoRegistro();
+
+                return;
+            }
+
+            repositorioBase.Inserir(registro);
+
+            MostrarMensagem("Registro inserido com sucesso!", ConsoleColor.Green);
+        }
         protected override void MostrarTabela(ArrayList registros)
         {
-            Console.WriteLine("{0, -10} | {1, -20} | {2, -20}", "Id", "Número", "Mesa", "Garçom", "Produto", "Quantidade", "Valor");
+            Console.WriteLine();
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20}|", "Id", "Garçom", "Status");
+            Console.WriteLine("-----------------------------------------------------------------------");
 
-            Console.WriteLine("------------------------------------------------------------------------------------------------");
-
-            foreach (Contas contas in registros)
+            foreach (Contas conta in registros)
             {
-                Console.WriteLine("{0, -10} | {1, -20} | {2, -20}", contas.id, contas.numero, contas.mesa.numMesa, contas.garcom.nome, contas.produto.nome, contas.produto.quantidade, contas.produto.preco);
+                Console.WriteLine("{0, -10} | {1, -20} | {2, -10} |", conta.id, conta.numero, conta.status);
             }
+            Console.ReadLine();
         }
+        protected void MostrarContasEmAberto(ArrayList registros)
+        {
+            Console.WriteLine();
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20}| {3, -10}|", "Id", "Garçom", "Mesa", "Status");
+            Console.WriteLine("-------------------------------------------------------------------------");
 
+            foreach (Contas conta in registros)
+            {
+                if (conta.status == "Aberta")
+                {
+                    Console.WriteLine("{0, -10} | {1, -20} | {2, -10}| {3, -10}|", conta.id, conta.numero, conta.mesa.numMesa, conta.status);
+                }
+            }
+            Console.ReadLine();
+        }
+        protected void MostrarTabelaDeProdutosDeUmPedido()
+        {
+            Console.WriteLine("Digite o id da conta que quer listar os produtos pedidos: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Contas conta = (Contas)repositorioConta.SelecionarPorId(id);
+
+            Console.WriteLine();
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} |", "Produtos", "Quantidade", "Total");
+            Console.WriteLine("---------------------------------------------------------------");
+
+            foreach (Pedido pedido in conta.listaPedidos)
+            {
+                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} |", pedido.produto.nome, pedido.quantidade, pedido.Calculo);
+            }
+            Console.ReadLine();
+        }
         protected override EntidadeBase ObterRegistro()
         {
-            Console.Write("Digite o numero da Conta: ");
-            int numero = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Digite o numero da conta: ");
+            int numero = int.Parse(Console.ReadLine());
 
-            Produto produto = ObterProduto();
+            Console.Write("Digite o id da Mesa: ");
+            int numMesa = int.Parse(Console.ReadLine());
 
-            Mesa mesa = ObterMesa();
+            Console.Write("Digite o id da Garçom: ");
+            int idGarcom = int.Parse(Console.ReadLine());
 
-            Garcom garcom = ObterGarcom();
+            Mesa mesa = repositorioMesa.SelecionarPorId(numMesa);
+            Garcom garcom = (Garcom)repositorioGarcom.SelecionarPorId(numMesa);
 
-            Console.Write("Digite a data: ");
-            DateTime data = Convert.ToDateTime(Console.ReadLine());
+            Contas conta = new Contas(numero, mesa, garcom);
 
-
-
-            return new Contas(numero, mesa, produto, garcom, data);
+            return conta;
         }
-        private Produto ObterProduto()
+        protected void AdicionarPedidoNaConta()
         {
-            telaProduto.VisualizarRegistros(false);
+            Console.WriteLine("Digite o id da conta: ");
+            int numConta = int.Parse(Console.ReadLine());
 
-            Produto produto = (Produto)telaProduto.EncontrarRegistro("Digite o id do funcionário: ");
+            Contas conta = (Contas)repositorioConta.SelecionarPorId(numConta);
 
-            Console.WriteLine();
+            Console.WriteLine("Digite o Produto a ser pedido: ");
+            string nomeProduto = Console.ReadLine();
 
-            return produto;
+            Console.WriteLine("Digite a quantidade: ");
+            int quantidadeProduto = int.Parse(Console.ReadLine());
+
+            Produto produtoSelecionado = null;
+
+            foreach (Produto produto in repositorioProduto.SelecionarTodos())
+            {
+                if (produto.nome == nomeProduto)
+                {
+                    produtoSelecionado = produto;
+                    break;
+                }
+            }
+
+            Pedido pedido = new Pedido(quantidadeProduto, produtoSelecionado);
+            conta.listaPedidos.Add(pedido);
         }
-
-        private Mesa ObterMesa()
+        protected void TotalValorPedidos()
         {
-            telaMesa.VisualizarRegistros(false);
-
-            Mesa mesa = (Mesa)telaMesa.EncontrarRegistro("Digite o id do medicamento: ");
-
-            Console.WriteLine();
-
-            return mesa;
+            Console.WriteLine($"Total Valor Pedidos: {repositorioConta.ValorTotal()}");
+            Console.ReadLine();
         }
-        private Garcom ObterGarcom()
+        protected void FecharConta()
         {
-            telaGarcom.VisualizarRegistros(false);
+            Console.WriteLine("Digite o ID da Conta a fechar: ");
+            int id = int.Parse(Console.ReadLine());
 
-            Garcom garcom = (Garcom)telaGarcom.EncontrarRegistro("Digite o id do Garçom: ");
+            Contas conta = (Contas)repositorioConta.SelecionarPorId(id);
 
-            Console.WriteLine();
+            conta.status = "Fechada";
 
-            return garcom;
+            MostrarMensagem("Conta fechada com sucesso!", ConsoleColor.Green);
         }
     }
 }
-/*    protected override EntidadeBase ObterRegistro()
-    {
-        Console.Write("Digite o numero da Conta: ");
-        int numero = Convert.ToInt32(Console.ReadLine());
-
-        Mesa mesa = ObterMesa();
-        Garcom garcom = ObterGarcom();
-        Produto produto = ObterProduto();
-
-
-        Console.Write("Digite a data: ");
-        DateTime data = Convert.ToDateTime(Console.ReadLine());
-
-
-
-        return new Contas(numero, mesa, produto, garcom, data);
-
-
-        Console.WriteLine();
-
-
-    }
-
-    private Produto ObterProduto()
-    {
-        telaProduto.VisualizarRegistros(false);
-
-        Produto produto = (Produto)telaProduto.EncontrarRegistro("Digite o id do funcionário: ");
-
-        Console.WriteLine();
-
-        return produto;
-    }
-
-    private Mesa ObterMesa()
-    {
-        telaMesa.VisualizarRegistros(false);
-
-        Mesa mesa = (Mesa)telaMesa.EncontrarRegistro("Digite o id da mesa: ");
-
-        Console.WriteLine();
-
-        return mesa;
-    }
-
-    private Garcom ObterGarcom()
-    {
-        telaGarcom.VisualizarRegistros(false);
-
-        Garcom garcom = (Garcom)telaGarcom.EncontrarRegistro("Digite o id do Garçom: ");
-
-        Console.WriteLine();
-
-        return garcom;
-*/
