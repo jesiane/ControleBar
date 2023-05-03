@@ -143,10 +143,10 @@ namespace ControleDeBar.ConsoleApp
 
         private static void CadastrarRegistros(RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa, RepositorioGarcom repositorioGarcom,RepositorioConta repositorioConta)
         {
-            Produto produto1 = new Produto("Cerveja", "R$ 18,00", 50);
-            Produto produto2 = new Produto("Pastel", "R$ 10,00", 10);
-            Produto produto3 = new Produto("Risoles", "R$ 7,00", 10);
-            Produto produto4 = new Produto("Refrigerante", "R$ 10,00", 25);
+            Produto produto1 = new Produto("Cerveja", 18.00, 50);
+            Produto produto2 = new Produto("Pastel", 10.00, 10);
+            Produto produto3 = new Produto("Risoles", 7.00, 10);
+            Produto produto4 = new Produto("Refrigerante", 10.00, 25);
 
             repositorioProduto.Inserir(produto1);
             repositorioProduto.Inserir(produto2);
@@ -173,7 +173,8 @@ namespace ControleDeBar.ConsoleApp
             repositorioGarcom.Inserir(garcon3);
             repositorioGarcom.Inserir(garcon4);
 
-            Contas conta1 = new Contas(1,1,1,03/05/2023);
+        //    Contas conta1 = new Contas(1,1,1);
+        //    repositorioConta.Inserir(conta1);
         }
     }
 }

@@ -7,8 +7,8 @@ using ControleDeBar.ConsoleApp.ModuloProduto;
 using ControleDeBar.ConsoleApp;
 using System.Collections;
 
-namespace Restaurante.ConsoleApp.ModuloConta
-{
+namespace ControleDeBar.ConsoleApp.ModuloConta
+{ 
     public class TelaConta : TelaBase
     {
         public RepositorioConta repositorioConta = null;
@@ -16,16 +16,23 @@ namespace Restaurante.ConsoleApp.ModuloConta
         public RepositorioProduto repositorioProduto = null;
         public RepositorioMesa repositorioMesa = null;
 
-        protected override EntidadeBase ObterRegistro => throw new NotImplementedException();
+     
 
-        public TelaConta(RepositorioConta repositorioConta, RepositorioGarcom repositorioGarcom, RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa)
+        //public TelaConta(RepositorioConta repositorioConta, RepositorioGarcom repositorioGarcom, RepositorioProduto repositorioProduto, RepositorioMesa repositorioMesa)
+        //{
+        //    repositorioBase = repositorioConta;
+
+        //    this.repositorioConta = repositorioConta;
+        //    this.repositorioGarcom = repositorioGarcom;
+        //    this.repositorioProduto = repositorioProduto;
+        //    this.repositorioMesa = repositorioMesa;
+        //    nomeEntidade = "Conta";
+        //    sufixo = "s";
+        //}
+
+        public TelaConta(RepositorioConta repositorioConta)
         {
-            repositorioBase = repositorioConta;
-
             this.repositorioConta = repositorioConta;
-            this.repositorioGarcom = repositorioGarcom;
-            this.repositorioProduto = repositorioProduto;
-            this.repositorioMesa = repositorioMesa;
             nomeEntidade = "Conta";
             sufixo = "s";
         }
@@ -54,7 +61,7 @@ namespace Restaurante.ConsoleApp.ModuloConta
      
         public override void InserirNovoRegistro()
         {
-            EntidadeBase registro = ObterRegistro();
+            EntidadeBase registro = ObterRegistro;
 
             if (TemErrosDeValidacao(registro))
             {
@@ -102,17 +109,22 @@ namespace Restaurante.ConsoleApp.ModuloConta
             Contas conta = (Contas)repositorioConta.SelecionarPorId(id);
 
             Console.WriteLine();
-            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} |", "Produtos", "Quantidade", "Total");
+            Console.WriteLine("{0, -10}| {1, -20}| {2, -20}|", "Produtos", "Quantidade", "Total");
             Console.WriteLine("---------------------------------------------------------------");
 
             foreach (Pedido pedido in conta.listaPedidos)
             {
-                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} |", pedido.produto.nome, pedido.quantidade, pedido.Calculo);
+                Console.WriteLine("{0, -10}| {1, -20} | {2, -20}|", pedido.produto.nome, pedido.quantidade, pedido.Calculo);
             }
             Console.ReadLine();
         }
+
+
+
+
         protected override EntidadeBase ObterRegistro()
         {
+
             Console.Write("Digite o numero da conta: ");
             int numero = int.Parse(Console.ReadLine());
 
@@ -128,7 +140,9 @@ namespace Restaurante.ConsoleApp.ModuloConta
             Contas conta = new Contas(numero, mesa, garcom);
 
             return conta;
+
         }
+
         protected void AdicionarPedidoNaConta()
         {
             Console.WriteLine("Digite o id da conta: ");

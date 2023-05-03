@@ -29,7 +29,6 @@ namespace ControleDeBar.ConsoleApp.ModuloMesa
 
         }
 
-
         protected override EntidadeBase ObterRegistro
         {
             get

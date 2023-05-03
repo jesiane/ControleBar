@@ -25,6 +25,7 @@ namespace ControleDeBar.ConsoleApp.ModuloGarcon
                 Console.WriteLine("|{0,-10}| {1,-20}| {2,-20}|", garcon.id , garcon.nome, garcon.cpf);
             }
         }
+
         protected override EntidadeBase ObterRegistro
         {
             get
